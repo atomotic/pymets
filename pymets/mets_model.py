@@ -6,6 +6,7 @@ __version__ = '0.1'
 
 METS_NS = "http://www.loc.gov/METS/"
 XLIN_NS = "http://www.w3.org/1999/xlink"
+XSI_NS = "http://www.w3.org/2001/XMLSchema-instance"
 
 mets_nsmap = {
     'mets': METS_NS,
@@ -18,6 +19,8 @@ xlin_nsmap = {
 ET.register_namespace('mets', METS_NS)
 
 ET.register_namespace('xlin', XLIN_NS)
+
+ET.register_namespace('xsi', XSI_NS)
 
 strict = True
 
@@ -40,6 +43,7 @@ class Mets(ET.ElementBase):
     TAG = '{http://www.loc.gov/METS/}mets'
 
     def tounicode(self, pretty_print=False):
+        self.set("{http://www.w3.org/2001/XMLSchema-instance}"+"schemaLocation", "http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd")
         return ET.tounicode(self, pretty_print=pretty_print)
 
     def write(self, filename, pretty_print=False):
